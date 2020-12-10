@@ -50,24 +50,35 @@ router.get('/:budgetId', async (req, res) => {
       budget.privateDetail.products = Object.values(joinedProducts);
     }
 
-    res.send({
+    res.status(200).send({
       ...budget
     });
 
   } catch (err){
-    console.log(err);
+    res.status(500).send({
+      error: 'Não consegui processar esta solicitação.'
+    });
+    console.error(err);
   }
 
   
 });
 router.post('/create', async (req, res) => {
+  
+  try {
     const budget = await Budget.create({
       ...req.body,
       ownId: req.userId
     });
-  res.send({
-    budget
-  });
+    res.status(201).send({
+      _id: budget._id
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: 'Não consegui processar esta solicitação.'
+    });
+    console.error(err);
+  }
 });
 
 
