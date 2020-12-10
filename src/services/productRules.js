@@ -3,6 +3,9 @@ const productRule = {
     amountSelected = parseInt(amountSelected, 10);
     return Math.ceil(amountSelected / 4);
   },
+  amountsAreEquals: function (amount = 0) {
+    return amount;
+  },
   expansao212_24V: function (
     amount_persianaMotorizada,
     outrosItems
@@ -11,6 +14,5 @@ const productRule = {
   }
 
 };
-
 
 module.exports = productRule;
