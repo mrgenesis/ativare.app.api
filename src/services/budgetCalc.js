@@ -47,7 +47,7 @@ function budgetCalc(products = '', materialsList) {
 
     materialListOfBudget.map((material, idx) => {
       findMaterialOfList = materialsList.find(item => item._id == material._id);
-      materialListOfBudget[idx] = { floor: floor, ...material, ...findMaterialOfList };
+      materialListOfBudget[idx] = { floor: floor, ...material, _id: findMaterialOfList._id, name: findMaterialOfList.name, unitPrice: findMaterialOfList.unitPrice };
       materialListOfBudget[idx].subTotal = Math.ceil(materialListOfBudget[idx].amount) * materialListOfBudget[idx].unitPrice;
       total += materialListOfBudget[idx].subTotal;
       privateDetail.push(materialListOfBudget[idx]);
