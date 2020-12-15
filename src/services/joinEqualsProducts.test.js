@@ -1,13 +1,13 @@
 const joinEqualsProducts = require('./joinEqualsProducts');
 const {
   budgetProductsList,
-  oneItemWithoutProperty_id, 
+  oneItemWithoutProperty_id,
   oneItemWithoutPropertyAmount,
   propertyAmountIsNotNumber
 } = require('../../dataTests/budgetProductsList');
 
 describe('Testing if join the products correctly.', function () {
-  it('If don\'t send nothing as parameter return error', function (){
+  it('If don\'t send nothing as parameter return error', function () {
     expect(() => joinEqualsProducts()).toThrow('Don\'t sent a object');
   });
 
@@ -24,7 +24,7 @@ describe('Testing if join the products correctly.', function () {
     expect(() => joinEqualsProducts(propertyAmountIsNotNumber))
       .toThrow('The property "amount" should be number');
   });
-  
+
   it('Joined success return property "joinedProductsTheKeyAreItsIds", "joinedProductsId" e "joinedProductsObj"', function () {
     expect(joinEqualsProducts(budgetProductsList))
       .toHaveProperty('joinedProductsTheKeyAreItsIds');
