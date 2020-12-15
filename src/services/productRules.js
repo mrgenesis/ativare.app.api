@@ -1,7 +1,7 @@
 const productRule = {
   oneIndividualItemForFuorSelected: function (amountSelected = 0) {
     amountSelected = parseInt(amountSelected, 10);
-    return Math.ceil(amountSelected / 4);
+    return amountSelected / 4;
   },
   amountsAreEquals: function (amount = 0) {
     return amount;
@@ -9,7 +9,7 @@ const productRule = {
   expansao212_24V: function (
     amount_persianaMotorizada,
     outrosItems
-    ) {
+  ) {
 
   }
 
