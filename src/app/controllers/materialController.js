@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   let materials = await Material.find({});
 
   res.status(200).send({
-    ...material.toObject()
+    ...materials.toObject()
   });
 });
 
