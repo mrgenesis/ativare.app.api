@@ -6,15 +6,17 @@ router.get('/', async (req, res) => {
   // permitir acesso somente perfil admin
   let materials = await Material.find({});
 
-  res.status(200).send(materials);
+  res.status(200).send({
+    ...material.toObject()
+  });
 });
 
 router.post('/new', async (req, res) => {
-  console.log(req.body);
+
 
   const material = await Material.create(req.body);
   res.status(201).send({
-    id: material.id
+    ...material.toObject()
   });
 });
 

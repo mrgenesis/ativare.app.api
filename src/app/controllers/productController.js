@@ -1,6 +1,16 @@
 const router = require('express').Router();
 const Product = require('../models/product');
 
+router.get('/', async (req, res) => {
+  //TODO: adicionar um midlleware
+  // permitir acesso somente perfil admin
+  let product = await Product.find({});
+
+  res.status(200).send({
+    ...product.toObject()
+  });
+});
+
 router.post('/new', async (req, res) => {
   console.log(req.body);
 
@@ -11,10 +21,10 @@ router.post('/new', async (req, res) => {
 });
 
 router.get('/automation', async (req, res) => {
-  const automationItems = await Product.find({ 
+  const automationItems = await Product.find({
     category: "Automação"
   });
-  res.status(200).send([ ...automationItems ]);
+  res.status(200).send([...automationItems]);
 });
 
 

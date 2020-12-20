@@ -9,6 +9,16 @@ const Material = require('../models/material');
 
 //router.use(authMiddleware);
 
+router.get('/', async (req, res) => {
+  //TODO: adicionar um midlleware
+  // permitir acesso somente perfil admin
+  let budget = await Budget.find({});
+
+  res.status(200).send({
+    ...budget.toObject()
+  });
+});
+
 router.get('/:budgetId', async (req, res) => {
   const { budgetId } = req.params;
   try {
