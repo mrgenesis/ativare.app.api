@@ -17,6 +17,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:materialId', async (req, res) => {
+  const { materialId } = req.params;
+
+  try {
+    //TODO: adicionar um midlleware
+    // permitir acesso somente perfil admin
+    let material = await Material.findOne({ code: materialId });
+
+    res.status(200).send({ ...material.toObject() });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+});
+
 router.post('/new', async (req, res) => {
 
 
