@@ -2,13 +2,19 @@ const router = require('express').Router();
 const Material = require('../models/material');
 
 router.get('/', async (req, res) => {
-  //TODO: adicionar um midlleware
-  // permitir acesso somente perfil admin
-  let materials = await Material.find({});
 
-  res.status(200).send({
-    ...materials.toObject()
-  });
+  try {
+    //TODO: adicionar um midlleware
+    // permitir acesso somente perfil admin
+    let materials = await Material.find({});
+
+    res.status(200).send([
+      ...materials
+    ]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 });
 
 router.post('/new', async (req, res) => {

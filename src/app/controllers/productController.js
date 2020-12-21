@@ -2,13 +2,17 @@ const router = require('express').Router();
 const Product = require('../models/product');
 
 router.get('/', async (req, res) => {
-  //TODO: adicionar um midlleware
-  // permitir acesso somente perfil admin
-  let product = await Product.find({});
+  try {
+    //TODO: adicionar um midlleware
+    // permitir acesso somente perfil admin
+    let product = await Product.find({});
 
-  res.status(200).send({
-    ...product.toObject()
-  });
+    res.status(200).send([
+      ...product
+    ]);
+  } catch (error) {
+    res.status(500).send('Erro para processar esta solicitação');
+  }
 });
 
 router.post('/new', async (req, res) => {

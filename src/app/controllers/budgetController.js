@@ -10,13 +10,17 @@ const Material = require('../models/material');
 //router.use(authMiddleware);
 
 router.get('/', async (req, res) => {
-  //TODO: adicionar um midlleware
-  // permitir acesso somente perfil admin
-  let budget = await Budget.find({});
+  try {
+    //TODO: adicionar um midlleware
+    // permitir acesso somente perfil admin
+    let budget = await Budget.find({});
 
-  res.status(200).send({
-    ...budget.toObject()
-  });
+    res.status(200).send([
+      ...budget
+    ]);
+  } catch (error) {
+    res.status(500).send('Erro para processar esta solicitação');
+  }
 });
 
 router.get('/:budgetId', async (req, res) => {
