@@ -10,7 +10,7 @@ const BudgetSchema = new mongoose.Schema({
 });
 
 BudgetSchema.pre('save', async function (next) {
-  const budgetCounter = await Counter.findOneAndUpdate({ name: 'budget' }, { code: { $inc: 1 }, codePrefix: 'O' }, { upsert: true, new: true });
+  const budgetCounter = await Counter.findOneAndUpdate({ name: 'budget' }, { $inc: { code: 1 }, codePrefix: 'O' }, { upsert: true, new: true });
   this.code = budgetCounter.codePrefix + budgetCounter.code;
   next();
 });

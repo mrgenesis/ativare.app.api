@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
 });
 
 ProductSchema.pre('save', async function (next) {
-  const productCounter = await Counter.findOneAndUpdate({ name: 'product' }, { code: { $inc: 1 }, codePrefix: 'P' }, { upsert: true, new: true });
+  const productCounter = await Counter.findOneAndUpdate({ name: 'product' }, { $inc: { code: 1 }, codePrefix: 'P' }, { upsert: true, new: true });
   this.code = productCounter.codePrefix + productCounter.code;
   next();
 });
