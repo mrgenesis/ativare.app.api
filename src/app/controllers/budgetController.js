@@ -44,12 +44,17 @@ router.post('/create', async (req, res) => {
 router.get('/:budgetId', async (req, res) => {
   const { budgetId } = req.params;
   try {
-    let budget = await Budget.findById(budgetId);
+    let budget = await (function () {
+      return require('mongoose').Types.ObjectId.isValid(budgetId)
+        ? Budget.findById(budgetId)
+        : Budget.findOne({ code: budgetId });
+    })();
+    if (!budget) {
+      return res.status(204).send();
+    }
+    budget = budget.toObject();
     let selectMaterialsAll = await Material.find({});
-    let { total, privateDetail } = budgetCalc(budget._doc.productsList, selectMaterialsAll);
-    budget = budget._doc;
-
-    console.log('total: ' + total, privateDetail)
+    let { total, privateDetail } = budgetCalc(budget.productsList, selectMaterialsAll);
 
     budget['total'] = total;
     budget['privateDetail'] = [];
