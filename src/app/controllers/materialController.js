@@ -17,6 +17,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+router.post('/new', async (req, res) => {
+
+
+  const material = await Material.create(req.body);
+  res.status(201).send({
+    ...material.toObject()
+  });
+});
+
 router.get('/:materialId', async (req, res) => {
   const { materialId } = req.params;
 
@@ -31,14 +41,4 @@ router.get('/:materialId', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-router.post('/new', async (req, res) => {
-
-
-  const material = await Material.create(req.body);
-  res.status(201).send({
-    ...material.toObject()
-  });
-});
-
 module.exports = app => app.use('/material', router);
