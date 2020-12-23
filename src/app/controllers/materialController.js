@@ -35,7 +35,14 @@ router.get('/:materialId', async (req, res) => {
     // permitir acesso somente perfil admin
     let material = await Material.findOne({ code: materialId });
 
-    res.status(200).send({ ...material.toObject() });
+    if (!material) {
+      return res.status(204).send();
+    }
+
+    material = material.toObject();
+
+    res.status(200).send({ ...material });
+
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
