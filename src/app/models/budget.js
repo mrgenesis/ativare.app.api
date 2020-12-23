@@ -5,7 +5,7 @@ const BudgetSchema = new mongoose.Schema({
   ownId: { type: String },
   customer: { type: Object },
   productsList: { type: Array },
-  code: { type: Number, unique: true },
+  code: { type: String, unique: true },
   createAt: { type: Date, default: Date.now }
 });
 
