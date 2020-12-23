@@ -8,12 +8,15 @@ function joinMaterials(joinedProducts) {
     product.materials.map(material => {
       amount = product.amount;
       if (joinedMaterials[material._id]) {
-        joinedMaterials[material._id].amount += productRules[material.rule](amount);
+        joinedMaterials[material._id].totalAmountInProducts += amount;
+        joinedMaterials[material._id].amountCalc += productRules[material.rule](amount);
       }
       else {
         joinedMaterials[material._id] = {
           _id: material._id,
-          amount: productRules[material.rule](amount)
+          totalAmountInProducts: amount,
+          amountCalc: productRules[material.rule](amount),
+          rule: material.rule
         };
       }
 
