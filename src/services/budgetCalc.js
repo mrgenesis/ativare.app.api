@@ -27,7 +27,7 @@ function budgetCalc(products = '', materialsList) {
     , findMaterialOfList
 
     // Private values avaliable only to admin users
-    , privateDetail = [];
+    , materialsPrivateDetails = [];
 
 
   // Join products the same as floor. 
@@ -51,12 +51,12 @@ function budgetCalc(products = '', materialsList) {
       materialListOfBudget[idx].roundedAmount = Math.ceil(material.amountCalc);
       materialListOfBudget[idx].subTotal = materialListOfBudget[idx].roundedAmount * materialListOfBudget[idx].unitPrice;
       total += materialListOfBudget[idx].subTotal;
-      privateDetail.push(materialListOfBudget[idx]);
+      materialsPrivateDetails.push(materialListOfBudget[idx]);
     });
 
   }
 
-  return { total, privateDetail };
+  return { total, materialsPrivateDetails };
 
 }
 module.exports = budgetCalc;
