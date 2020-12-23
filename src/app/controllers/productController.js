@@ -14,6 +14,19 @@ router.get('/', async (req, res) => {
     res.status(500).send('Erro para processar esta solicitação');
   }
 });
+router.get('/:productId', async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const product = await Product.findOne({ code: productId });
+    res.status(200).send({
+      ...product.toObject()
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: 'Erro ao processar a solicitação' });
+  }
+
+});
 
 router.post('/new', async (req, res) => {
   console.log(req.body);
