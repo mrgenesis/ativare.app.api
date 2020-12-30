@@ -2,6 +2,8 @@ const express = require('express')
   , bodyParser = require('body-parser')
   , app = express();
 
+console.log(process.env);
+
 if (process.env.ENVIRONMENT === 'dev') {
   const cors = require('cors');
   app.use(cors());
