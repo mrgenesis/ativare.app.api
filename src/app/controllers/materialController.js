@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const Material = require('../models/material');
+const authMiddleware = require('../middlewares/auth');
+
+router.use(authMiddleware);
 
 router.get('/', async (req, res) => {
-
+  console.log('req.headers.authorization', req.headers.authorization)
   try {
     //TODO: adicionar um midlleware
     // permitir acesso somente perfil admin
