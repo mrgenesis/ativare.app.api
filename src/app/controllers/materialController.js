@@ -30,6 +30,30 @@ router.post('/new', async (req, res) => {
   });
 });
 
+router.post('/edit', async (req, res) => {
+  const materialUpdate = req.body;
+  try {
+    if (!materialUpdate.code) {
+      throw new Error('A propriedade code não foi informada.');
+    }
+    const codeProperty = { code: materialUpdate.code };
+    const set = { '$set': { name: materialUpdate.name, unitPrice: materialUpdate.unitPrice } }
+    const getNew = { new: true };
+    const material = await Material.findOneAndUpdate(codeProperty, set, getNew);
+
+    if (!material) {
+      res.status(204).send({});
+    }
+    return res.status(201).send({
+      ...material.toObject()
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(400).send({ Error: 'Não foi possível processar esta solicitação' })
+  }
+});
+
 router.get('/:materialId', async (req, res) => {
   const { materialId } = req.params;
 
