@@ -54,15 +54,14 @@ router.get('/:budgetId', async (req, res) => {
     }
     budget = budget.toObject();
     let selectMaterialsAll = await Material.find({});
-    let { total, materialsPrivateDetails } = budgetCalc(budget.productsList, selectMaterialsAll);
-
+    let { total, materialsPrivateDetails, budgetFloors } = budgetCalc(budget.productsList, selectMaterialsAll);
+    budget['budgetFloors'] = budgetFloors;
     budget['total'] = total;
-    budget['privateDetail'] = {
-      materials: []
-    };
 
     if (true) { // TODO: Colocar restrição para executar apenas em logins com perfil admin
-      budget.privateDetail.materials = materialsPrivateDetails;
+      budget['privateDetail'] = {
+        materials: materialsPrivateDetails
+      };
     }
 
     res.status(200).send({

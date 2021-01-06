@@ -27,7 +27,10 @@ function budgetCalc(products = '', materialsList) {
     , findMaterialOfList
 
     // Private values avaliable only to admin users
-    , materialsPrivateDetails = [];
+    , materialsPrivateDetails = []
+
+    // Only floors of budget
+    , budgetFloors = [];
 
 
   // Join products the same as floor. 
@@ -55,8 +58,8 @@ function budgetCalc(products = '', materialsList) {
     });
 
   }
-
-  return { total, materialsPrivateDetails };
+  budgetFloors = Object.keys(joinPerFloors.joinedProductsTheKeyAreItsFloor);
+  return { total, materialsPrivateDetails, budgetFloors };
 
 }
 module.exports = budgetCalc;
