@@ -12,7 +12,21 @@ function generateToken(param = {}) {
   return jwt.sign(param, authConfig.secret, { expiresIn: 86400 });
 }
 
+router.get('/', async (req, res) => {
 
+  try {
+    const users = await User.find({});
+
+    if (!users)
+      return res.status(204).send([]);
+
+    res.send([...users]);
+
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ Error: "error" });
+  }
+});
 
 router.post('/register', async (req, res) => {
   const { email } = req.body;
