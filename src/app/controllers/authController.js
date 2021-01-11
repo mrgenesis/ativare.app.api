@@ -137,5 +137,20 @@ router.post('/reset_password', async (req, res) => {
     res.status(400).send({ Error: "Can not reset, try again" });
   }
 });
+router.get('/:userCode', async (req, res) => {
+  const { userCode } = req.params;
+
+  try {
+    const user = await User.findOne({ code: userCode });
+    if (!user)
+      return res.status(204).send({});
+
+    res.send({ ...user.toObject() });
+
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ Error: "error" });
+  }
+});
 
 module.exports = app => app.use('/auth', router);
