@@ -2,7 +2,13 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth-config');
 
 module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const publicRoute = /^\/auth\/authenticate$/
+    , authHeader = req.headers.authorization;
+
+  if (publicRoute.test(req.path)) {
+    return next();
+  }
+
   if (!authHeader)
     return res.status(401).send({ Error: "No token provaded" });
 
