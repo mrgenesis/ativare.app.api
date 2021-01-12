@@ -1,8 +1,5 @@
 const router = require('express').Router();
 const Product = require('../models/product');
-const authMiddleware = require('../middlewares/auth');
-
-router.use(authMiddleware);
 
 router.get('/', async (req, res) => {
   try {
