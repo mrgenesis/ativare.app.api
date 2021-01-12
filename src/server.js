@@ -15,11 +15,26 @@ app.use(bodyParser.json());
 // permitirá que a aplicação entenda parâmetros via URL
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// verifica se está autenticado
-app.use(authMiddleware);
 
-// verifica se é perfil admin
-app.use(isAdmin);
+app.use((req, res, next) => {
+
+  const publicRoute = /^\/auth\/authenticate$/;
+
+  // Verifica se a rota é pública ou privada
+  // Se for pública, não executa nenhum middleware
+  if (!publicRoute.test(req.path)) {
+
+    // verifica se está autenticado
+    app.use(authMiddleware);
+
+    // Veriifica de é admin
+    app.use(isAdmin);
+
+  }
+
+  return next();
+
+});
 
 require('./app/controllers/index')(app);
 
