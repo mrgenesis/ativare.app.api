@@ -1,7 +1,8 @@
 const express = require('express')
   , bodyParser = require('body-parser')
   , app = express()
-  , authMiddleware = require('./app/middlewares/auth');
+  , authMiddleware = require('./app/middlewares/auth')
+  , isAdmin = require('./app/middlewares/isAdmin');
 
 if (process.env.ENVIRONMENT === 'dev' || process.env.ENVIRONMENT === 'test') {
   const cors = require('cors');
@@ -16,6 +17,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // verifica se está autenticado
 app.use(authMiddleware);
+
+// verifica se é perfil admin
+app.use(isAdmin);
 
 require('./app/controllers/index')(app);
 
