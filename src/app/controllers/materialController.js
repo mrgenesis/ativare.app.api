@@ -1,14 +1,12 @@
 const router = require('express').Router();
 const Material = require('../models/material');
-const authMiddleware = require('../middlewares/auth');
-
-router.use(authMiddleware);
 
 router.get('/', async (req, res) => {
-  console.log('req.headers.authorization', req.headers.authorization)
+  if (!req.app.locals.isAdmin) {
+    return res.status(403).send([]);
+  }
+
   try {
-    //TODO: adicionar um midlleware
-    // permitir acesso somente perfil admin
     let materials = await Material.find({});
 
     res.status(200).send([
@@ -23,7 +21,9 @@ router.get('/', async (req, res) => {
 
 router.post('/new', async (req, res) => {
 
-
+  if (!req.app.locals.isAdmin) {
+    return res.status(403).send({});
+  }
   const material = await Material.create(req.body);
   res.status(201).send({
     ...material.toObject()
@@ -31,6 +31,9 @@ router.post('/new', async (req, res) => {
 });
 
 router.post('/edit', async (req, res) => {
+  if (!req.app.locals.isAdmin) {
+    return res.status(403).send({});
+  }
   const materialUpdate = req.body;
   try {
     if (!materialUpdate.code) {
@@ -55,6 +58,9 @@ router.post('/edit', async (req, res) => {
 });
 
 router.get('/:materialId', async (req, res) => {
+  if (!req.app.locals.isAdmin) {
+    return res.status(403).send({});
+  }
   const { materialId } = req.params;
 
   try {
@@ -65,7 +71,7 @@ router.get('/:materialId', async (req, res) => {
     if (!material) {
       return res.status(204).send();
     }
-
+    console.error(material);
     material = material.toObject();
 
     res.status(200).send({ ...material });
