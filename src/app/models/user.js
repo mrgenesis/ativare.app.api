@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   code: { type: String },
   passwordResetToken: { type: String, select: false },
   passwordResetExpires: { type: Date, select: false },
-  perfilType: { type: String },
+  roles: { type: Array },
   createAt: { type: Date, default: Date.now }
 
 });
