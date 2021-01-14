@@ -72,7 +72,7 @@ router.post('/authenticate', async (req, res) => {
   //const token = jwt.sign({ id: user.id }, authConfig.secret, { expiresIn: 86400 });
   res.status(200).send({
     user,
-    authorization: generateToken({ id: user.id, perfilType: user.perfilType })
+    authorization: generateToken({ id: user.id, roles: user.roles })
   });
 
 });
