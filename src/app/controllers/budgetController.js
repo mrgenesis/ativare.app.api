@@ -1,5 +1,4 @@
 const express = require('express');
-const authMiddleware = require('../middlewares/auth');
 const budgetCalc = require('../../services/budgetCalc');
 
 const router = express.Router();
@@ -7,7 +6,6 @@ const router = express.Router();
 const Budget = require('../models/budget');
 const Material = require('../models/material');
 
-router.use(authMiddleware);
 
 router.get('/', async (req, res) => {
   try {
