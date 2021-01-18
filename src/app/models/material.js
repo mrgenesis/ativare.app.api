@@ -4,6 +4,7 @@ const Counter = require('./counter');
 const MaterialSchema = new mongoose.Schema({
   name: { type: String },
   unitPrice: { type: Number },
+  ms: { type: Number },
   code: { type: Number, unique: true },
   createAt: { type: Date, default: Date.now }
 });
