@@ -6,13 +6,6 @@ const productRule = {
   amountsAreEquals: function (amount = 0) {
     return amount;
   },
-  expansao212_24V: function (
-    amount_persianaMotorizada,
-    outrosItems
-  ) {
-
-  }
-
 };
 
 module.exports = productRule;
