@@ -50,7 +50,7 @@ router.post('/edit', async (req, res) => {
           throw new Error('A propriedade code não foi informada.');
         }
         const codeProperty = { code: materialUpdate.code };
-        const set = { '$set': { name: materialUpdate.name, unitPrice: materialUpdate.unitPrice } }
+        const set = { '$set': { name: materialUpdate.name, limit: materialUpdate.limit, unitPrice: materialUpdate.unitPrice } }
         const getNew = { new: true };
         const material = await Material.findOneAndUpdate(codeProperty, set, getNew);
 
