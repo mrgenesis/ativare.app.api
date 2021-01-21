@@ -44,13 +44,13 @@ function budgetCalc(products = '', materialsList) {
   });
 
   for (let floor in joinEqualsProductsPerFloor) {
-    joinEqualsMaterials[floor] = joinMaterials(joinEqualsProductsPerFloor[floor]);
+    joinEqualsMaterials[floor] = joinMaterials(joinEqualsProductsPerFloor[floor], materialsList);
 
     materialListOfBudget = Object.values(joinEqualsMaterials[floor]);
 
     materialListOfBudget.map((material, idx) => {
       findMaterialOfList = materialsList.find(item => item._id == material._id);
-      materialListOfBudget[idx] = { floor: floor, ...material, _id: findMaterialOfList._id, name: findMaterialOfList.name, unitPrice: findMaterialOfList.unitPrice };
+      materialListOfBudget[idx] = { floor: floor, ...material, _id: findMaterialOfList._id, ms: findMaterialOfList.ms, name: findMaterialOfList.name, unitPrice: findMaterialOfList.unitPrice };
       materialListOfBudget[idx].roundedAmount = Math.ceil(material.amountCalc);
       materialListOfBudget[idx].subTotal = materialListOfBudget[idx].roundedAmount * materialListOfBudget[idx].unitPrice;
       total += materialListOfBudget[idx].subTotal;
